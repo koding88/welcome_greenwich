@@ -49,8 +49,15 @@ const server = http.createServer((req, res) => {
         })
     }
     else {
-        res.write("<h1>404 - Not Found</h1>")
-        res.end();
+        fs.readFile("notfound.html", (err, data) => {
+            if (err) {
+                console.error(err)
+            } else {
+                res.writeHead(200);
+                res.write(data);
+                res.end();
+            }
+        })
     }
 })
 server.listen(port, () => {
